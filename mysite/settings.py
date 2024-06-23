@@ -27,6 +27,7 @@ environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 KAKAO_SECRET_KEY = env('KAKAO_SECRET_KEY')
+KAKAO_REDIRECT_URI = env('KAKAO_REDIRECT_URI')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
