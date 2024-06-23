@@ -41,3 +41,17 @@ class SignInView(APIView):
             return Response({"message": "Invalid password"}, status=status.HTTP_401_UNAUTHORIZED)
 
         return set_token_on_response_cookie(user, status_code=status.HTTP_200_OK)
+    
+class SignOutView(APIView):
+    def post(self, request):
+        if not request.user.is_authenticated:
+            return Response(
+                {"detail": "please signin"}, status=status.HTTP_401_UNAUTHORIZED
+            )
+        refresh_token = request.data.get("refresh")
+        if not refresh_token:
+            return Response(
+                {"detail": "no refresh token"}, status=status.HTTP_400_BAD_REQUEST
+            )
+        RefreshToken(refresh_token).blacklist()
+        return Response(status=status.HTTP_204_NO_CONTENT)
